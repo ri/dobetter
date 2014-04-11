@@ -5,7 +5,120 @@ h1 {font-size: $type1;}
 h2 {font-size: $type2;}
 h3 {font-size: $type3;}
 h4 {font-size: $type4;}
+p, text { font-size: $type6; }
+a { color: $fem-colour; text-decoration: none}
+body {
+	font-family: $body-font;
+	background-color: $bg-grey;
+	-webkit-font-smoothing: antialiased;
+	color: #fff;
+	margin: 0;
+}
 
-.company {
-	float: left
+body > header {
+	height: 380px;
+	h1 {
+		text-align: center;
+		font-weight: 100;
+		font-family: $title-font;
+		font-size: 76px;
+		margin-top: 100px;
+		text-transform: uppercase;
+	}
+	p {
+		margin: 1em auto;
+		text-align: center;
+		max-width: 40em;
+	}
+}
+
+.container { width: 1000px; margin: 0 auto; position: relative}
+.femaleNum, .maleNum {
+	font-size: 12px;
+	alignment-baseline:central;
+	fill: #ffffff;
+}
+
+#line {
+	width: 100%;
+	position: absolute;
+	height: 20px;
+	border-bottom: 1px solid #fff;
+	z-index: 100;
+
+	.scale {
+		width: 1000px;
+		position: relative;
+		margin: 0 auto;
+	}
+
+	span {
+		display: block;
+		position: absolute;
+		text-align: center;
+
+		&:after {
+			display: block;
+			position: absolute;
+			content: '';
+			top: 17px;
+			border-radius: 50%;
+			width: 6px;
+			height: 6px; 
+		}
+	}
+	.all_women {
+		left: 0;
+		color: lighten($fem-colour, 10%);
+		&:after { 
+			left: 0;
+			background-color: lighten($fem-colour, 10%);
+		}
+	}
+	.half_women {
+		left: 25%;
+		color: lighten($fem-colour, 10%);
+		opacity: 0.7;
+		&:after { 
+			left: 0;
+			background-color: lighten($fem-colour, 10%);
+		}
+	}
+	.half_men {
+		right: 25%;
+		color: lighten($male-colour, 15%);
+		opacity: 0.7;
+
+		&:after { 
+			right: 0;
+			background-color: lighten($male-colour, 15%);
+		}
+	}
+	.all_men {
+		right: 0;
+		color: lighten($male-colour, 15%);
+
+		&:after { 
+			right: 0;
+			background-color: lighten($male-colour, 15%);}
+	}
+}
+
+#viz {
+	width: 1000px;
+	margin: 15px auto 0;
+	position: relative;
+	top: -55px;
+}
+#bubble_graph {
+	text-align: center;
+	text {
+		fill: #fff
+	} 
+	.avgFem-text {
+		fill: desaturate(lighten($fem-colour, 10%), 50%);
+	}
+	.avgMale-text {
+		fill: desaturate(lighten($male-colour, 10%), 50%);
+	}
 }
