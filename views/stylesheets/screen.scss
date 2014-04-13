@@ -16,7 +16,9 @@ body {
 }
 
 body > header {
-	height: 380px;
+	height: 480px;
+	width: 1000px;
+	margin: 0 auto;
 	h1 {
 		text-align: center;
 		font-weight: 100;
@@ -28,7 +30,7 @@ body > header {
 	p {
 		margin: 1em auto;
 		text-align: center;
-		max-width: 40em;
+		max-width: 42em;
 	}
 }
 
@@ -39,15 +41,52 @@ body > header {
 	fill: #ffffff;
 }
 
+#sort {
+	width: 42em;
+	margin: 4em auto;
+	padding: 5px 20px;
+	font-size: $type6;
+	box-sizing: border-box;
+	color: #fff;
+	border: 1px solid lighten($bg-grey, 10%);
+
+	span {
+		margin-left: 1em;
+		a { 
+			cursor: pointer; 
+			color: darken(#fff, 50%);
+			transition: all 0.2s;
+			&:hover {
+				color: darken(#fff, 20%)
+			}
+		}
+		.reverse {
+			width: 0; 
+			height: 0; 
+			display: inline-block;
+			margin-left: 2px;
+			border-left: 4px solid transparent;
+			border-right: 4px solid transparent;
+			border-top: 8px solid transparent;
+			&.asc {
+				transform:rotate(180deg);
+				-ms-transform:rotate(180deg); /* IE 9 */
+				-webkit-transform:rotate(180deg);
+			}
+		}
+		&.active { font-weight: bold; a {color: #fff} .reverse {border-top-color: #ffffff}}
+	}
+}
+
 #line {
 	width: 100%;
 	position: absolute;
-	height: 20px;
+	height: 35px;
 	border-bottom: 1px solid #fff;
 	z-index: 100;
 
 	.scale {
-		width: 1000px;
+		width: 800px;
 		position: relative;
 		margin: 0 auto;
 	}
@@ -56,15 +95,16 @@ body > header {
 		display: block;
 		position: absolute;
 		text-align: center;
+		padding-bottom: 15px;
 
 		&:after {
 			display: block;
 			position: absolute;
 			content: '';
-			top: 17px;
-			border-radius: 50%;
-			width: 6px;
-			height: 6px; 
+			bottom: 1px;
+			background-color: #ffffff;
+			width: 1px;
+			height: 10px; 
 		}
 	}
 	.all_women {
@@ -72,7 +112,6 @@ body > header {
 		color: lighten($fem-colour, 10%);
 		&:after { 
 			left: 0;
-			background-color: lighten($fem-colour, 10%);
 		}
 	}
 	.half_women {
@@ -81,7 +120,6 @@ body > header {
 		opacity: 0.7;
 		&:after { 
 			left: 0;
-			background-color: lighten($fem-colour, 10%);
 		}
 	}
 	.half_men {
@@ -91,7 +129,6 @@ body > header {
 
 		&:after { 
 			right: 0;
-			background-color: lighten($male-colour, 15%);
 		}
 	}
 	.all_men {
@@ -100,7 +137,7 @@ body > header {
 
 		&:after { 
 			right: 0;
-			background-color: lighten($male-colour, 15%);}
+		}
 	}
 }
 
@@ -108,7 +145,7 @@ body > header {
 	width: 1000px;
 	margin: 15px auto 0;
 	position: relative;
-	top: -55px;
+	top: -40px;
 }
 #bubble_graph {
 	text-align: center;
@@ -121,4 +158,8 @@ body > header {
 	.avgMale-text {
 		fill: desaturate(lighten($male-colour, 10%), 50%);
 	}
+}
+
+footer {
+	padding: 1em
 }

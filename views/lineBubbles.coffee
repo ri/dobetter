@@ -10,6 +10,8 @@ calculateRadius = (scale, value, maxRadius) ->
 class lineBubbles
 	constructor: (data, selection) ->
 		@cleanData = data[1..data.length - 1]
+			.sort((a,b) -> d3.ascending(a['company'], b['company']))
+			.sort((a,b) -> d3.descending(parseInt(a['num_eng']), parseInt(b['num_eng'])))
 		@rowHeight = 80
 		@offset = 140
 		@width = 1000
@@ -70,10 +72,45 @@ class lineBubbles
 			.attr(y: 20)
 
 		@svg.append('line')
+			.attr(class: 'all_fem')
+			.attr(stroke: '#ffffff')
+			.attr(opacity: 0.1)
+			.attr(x1: @maxRadius)
+			.attr(x2: @maxRadius)
+			.attr(y1: 60)
+			.attr(y2: @height)
+
+		@svg.append('line')
+			.attr(class: 'half_fem')
+			.attr(stroke: '#ffffff')
+			.attr(opacity: 0.1)
+			.attr(x1: @width/4 + @maxRadius/2)
+			.attr(x2: @width/4 + @maxRadius/2)
+			.attr(y1: 60)
+			.attr(y2: @height)
+
+		@svg.append('line')
+			.attr(class: 'all_male')
+			.attr(stroke: '#ffffff')
+			.attr(opacity: 0.1)
+			.attr(x1: @width - @maxRadius)
+			.attr(x2: @width - @maxRadius)
+			.attr(y1: 60)
+			.attr(y2: @height)
+
+		@svg.append('line')
+			.attr(class: 'half_male')
+			.attr(stroke: '#ffffff')
+			.attr(opacity: 0.1)
+			.attr(x1: @width/4 * 3 - @maxRadius/2)
+			.attr(x2: @width/4 * 3 - @maxRadius/2)
+			.attr(y1: 60)
+			.attr(y2: @height)
+
+		@svg.append('line')
 			.attr(class: 'avg_fem')
-			.attr(stroke: @colours['female'])
+			.attr(stroke: '#cc66a7')
 			.attr('stroke-dasharray': '5,5')
-			.attr(opacity: 0.7)
 			.attr(x1: @xF @avgFem)
 			.attr(x2: @xF @avgFem)
 			.attr(y1: 30)
@@ -81,7 +118,7 @@ class lineBubbles
 
 		@svg.append('line')
 			.attr(class: 'avg_male')
-			.attr(stroke: @colours['male'])
+			.attr(stroke: '#6679cc')
 			.attr('stroke-dasharray': '5,5')
 			.attr(opacity: 0.7)
 			.attr(x1: @xM 1 - @avgFem)
@@ -98,7 +135,7 @@ class lineBubbles
 				)
 			.attr('text-anchor': 'middle')
 			.attr(x: @width/2)
-			.attr(y: @rowHeight/2 - 3)
+			.attr(y: @rowHeight/2 - 5)
 
 		@companies.append('circle')
 			.attr(class: 'male')
@@ -238,15 +275,79 @@ class lineBubbles
 			when '< 25% women'then
 			when '< 10% women' then
 
-d3.csv("data/data.csv", (error, data) ->
+d3.json("/data.json", (error, data) ->
 
-	console.log data
+	data = d3.values data
 	chart = new lineBubbles(data, selection)
 	chart.draw()	
-	d3.select('#teamSize').on('click', () -> chart.sortByTeamSize('desc'))
-	d3.select('#femaleSort').on('click', () -> chart.sortByGender('female'))
-	d3.select('#maleSort').on('click', () -> chart.sortByGender('male'))
-	d3.select('#ratioSort').on('click', () -> chart.sortByRatio('asc'))
-	d3.select('#equalSort').on('click', () -> chart.sortByMostEqual('desc'))
+	d3.select('#teamSize').on('click', () -> chart.sortByTeamSize('desc'); activate(this))
+	d3.select('#teamSize + .reverse').on('click', () -> 
+		dir = 'desc'
+		el = d3.select(this)
+		if el.classed('desc') is true
+			dir = 'asc'
+			el.classed('asc', true)
+			el.classed('desc', false)
+		else
+			el.classed('asc', false)
+			el.classed('desc', true)
+		chart.sortByTeamSize(dir)
+	)
+	d3.select('#femaleSort').on('click', () -> chart.sortByGender('female'); activate(this))
+	d3.select('#femaleSort + .reverse').on('click', () -> 
+		dir = 'desc'
+		el = d3.select(this)
+		if el.classed('desc') is true
+			dir = 'asc'
+			el.classed('asc', true)
+			el.classed('desc', false)
+		else
+			el.classed('asc', false)
+			el.classed('desc', true)
+		chart.sortByGender('female', dir)
+	)	
+	d3.select('#maleSort').on('click', () -> chart.sortByGender('male'); activate(this))
+	d3.select('#maleSort + .reverse').on('click', () -> 
+		dir = 'desc'
+		el = d3.select(this)
+		if el.classed('desc') is true
+			dir = 'asc'
+			el.classed('asc', true)
+			el.classed('desc', false)
+		else
+			el.classed('asc', false)
+			el.classed('desc', true)
+		chart.sortByGender('male', dir)
+	)	
+	d3.select('#ratioSort').on('click', () -> chart.sortByRatio('desc'); activate(this))
+	d3.select('#ratioSort + .reverse').on('click', () -> 
+		dir = 'desc'
+		el = d3.select(this)
+		if el.classed('desc') is true
+			dir = 'asc'
+			el.classed('asc', true)
+			el.classed('desc', false)
+		else
+			el.classed('asc', false)
+			el.classed('desc', true)
+		chart.sortByRatio(dir)
+	)	
+	d3.select('#equalSort').on('click', () -> chart.sortByMostEqual('desc'); activate(this))
+	d3.select('#equalSort + .reverse').on('click', () -> 
+		dir = 'desc'
+		el = d3.select(this)
+		if el.classed('desc') is true
+			dir = 'asc'
+			el.classed('asc', true)
+			el.classed('desc', false)
+		else
+			el.classed('asc', false)
+			el.classed('desc', true)
+		chart.sortByMostEqual(dir)
+	)	
 )
 
+activate = (element) ->
+	parent = d3.select(element).node().parentNode
+	d3.selectAll('#sort span').classed('active', false)
+	d3.select(parent).classed('active', true)
