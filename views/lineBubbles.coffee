@@ -128,7 +128,7 @@ class lineBubbles
 
 		@companies.append('text')
 			.text((d) -> 
-				if d['team'] is not 'N/A'
+				if !(d['team'] is undefined)
 					"#{d['company']}, #{d['team']}"
 				else
 					d['company']
