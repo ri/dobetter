@@ -16,7 +16,7 @@ body {
 }
 
 body > header {
-	height: 480px;
+	height: 450px;
 	width: 1000px;
 	margin: 0 auto;
 	h1 {
@@ -24,7 +24,8 @@ body > header {
 		font-weight: 100;
 		font-family: $title-font;
 		font-size: 76px;
-		margin-top: 100px;
+		margin-top: 50px;
+		margin-bottom: 30px;
 		text-transform: uppercase;
 	}
 	p {
@@ -43,7 +44,7 @@ body > header {
 
 #sort {
 	width: 42em;
-	margin: 4em auto;
+	margin: 3.5em auto;
 	padding: 5px 20px;
 	font-size: $type6;
 	box-sizing: border-box;
@@ -86,7 +87,7 @@ body > header {
 	z-index: 100;
 
 	.scale {
-		width: 800px;
+		width: 1000px;
 		position: relative;
 		margin: 0 auto;
 	}
@@ -108,14 +109,14 @@ body > header {
 		}
 	}
 	.all_women {
-		left: 0;
+		left: 100px;
 		color: lighten($fem-colour, 10%);
 		&:after { 
 			left: 0;
 		}
 	}
 	.half_women {
-		left: 25%;
+		left: 300px;
 		color: lighten($fem-colour, 10%);
 		opacity: 0.7;
 		&:after { 
@@ -123,7 +124,7 @@ body > header {
 		}
 	}
 	.half_men {
-		right: 25%;
+		right: 300px;
 		color: lighten($male-colour, 15%);
 		opacity: 0.7;
 
@@ -132,7 +133,7 @@ body > header {
 		}
 	}
 	.all_men {
-		right: 0;
+		right: 100px;
 		color: lighten($male-colour, 15%);
 
 		&:after { 

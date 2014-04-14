@@ -280,69 +280,29 @@ d3.json("/data.json", (error, data) ->
 	data = d3.values data
 	chart = new lineBubbles(data, selection)
 	chart.draw()	
-	d3.select('#teamSize').on('click', () -> chart.sortByTeamSize('desc'); activate(this))
+	d3.select('#teamSize').on('click', () -> dir = reverse(d3.select(this).node().nextSibling); chart.sortByTeamSize(dir); activate(this);)
 	d3.select('#teamSize + .reverse').on('click', () -> 
-		dir = 'desc'
-		el = d3.select(this)
-		if el.classed('desc') is true
-			dir = 'asc'
-			el.classed('asc', true)
-			el.classed('desc', false)
-		else
-			el.classed('asc', false)
-			el.classed('desc', true)
+		dir = reverse(this)
 		chart.sortByTeamSize(dir)
 	)
-	d3.select('#femaleSort').on('click', () -> chart.sortByGender('female'); activate(this))
+	d3.select('#femaleSort').on('click', () -> dir = reverse(d3.select(this).node().nextSibling); chart.sortByGender('female', dir); activate(this))
 	d3.select('#femaleSort + .reverse').on('click', () -> 
-		dir = 'desc'
-		el = d3.select(this)
-		if el.classed('desc') is true
-			dir = 'asc'
-			el.classed('asc', true)
-			el.classed('desc', false)
-		else
-			el.classed('asc', false)
-			el.classed('desc', true)
+		dir = reverse(this)
 		chart.sortByGender('female', dir)
 	)	
-	d3.select('#maleSort').on('click', () -> chart.sortByGender('male'); activate(this))
+	d3.select('#maleSort').on('click', () -> dir = reverse(d3.select(this).node().nextSibling); chart.sortByGender('male', dir); activate(this))
 	d3.select('#maleSort + .reverse').on('click', () -> 
-		dir = 'desc'
-		el = d3.select(this)
-		if el.classed('desc') is true
-			dir = 'asc'
-			el.classed('asc', true)
-			el.classed('desc', false)
-		else
-			el.classed('asc', false)
-			el.classed('desc', true)
+		dir = reverse(this)
 		chart.sortByGender('male', dir)
 	)	
-	d3.select('#ratioSort').on('click', () -> chart.sortByRatio('desc'); activate(this))
+	d3.select('#ratioSort').on('click', () -> dir = reverse(d3.select(this).node().nextSibling); chart.sortByRatio(dir); activate(this))
 	d3.select('#ratioSort + .reverse').on('click', () -> 
-		dir = 'desc'
-		el = d3.select(this)
-		if el.classed('desc') is true
-			dir = 'asc'
-			el.classed('asc', true)
-			el.classed('desc', false)
-		else
-			el.classed('asc', false)
-			el.classed('desc', true)
+		dir = reverse(this)
 		chart.sortByRatio(dir)
 	)	
-	d3.select('#equalSort').on('click', () -> chart.sortByMostEqual('desc'); activate(this))
+	d3.select('#equalSort').on('click', () -> dir = reverse(d3.select(this).node().nextSibling); chart.sortByMostEqual(dir); activate(this))
 	d3.select('#equalSort + .reverse').on('click', () -> 
-		dir = 'desc'
-		el = d3.select(this)
-		if el.classed('desc') is true
-			dir = 'asc'
-			el.classed('asc', true)
-			el.classed('desc', false)
-		else
-			el.classed('asc', false)
-			el.classed('desc', true)
+		dir = reverse(element)
 		chart.sortByMostEqual(dir)
 	)	
 )
@@ -351,3 +311,17 @@ activate = (element) ->
 	parent = d3.select(element).node().parentNode
 	d3.selectAll('#sort span').classed('active', false)
 	d3.select(parent).classed('active', true)
+
+reverse = (element) ->
+	dir = 'desc'
+	el = d3.select(element)
+	elDir = el.classed('desc')
+	d3.selectAll('.reverse').classed('desc', false).classed('asc', true)
+	if elDir is true
+		dir = 'asc'
+		el.classed('asc', true)
+		el.classed('desc', false)
+	else
+		el.classed('asc', false)
+		el.classed('desc', true)
+	dir
