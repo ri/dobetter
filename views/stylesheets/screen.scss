@@ -8,6 +8,7 @@ h4 {font-size: $type4;}
 p, text { font-size: $type6; }
 a { color: $fem-colour; text-decoration: none}
 body {
+	width: 100%;
 	font-family: $body-font;
 	background-color: $bg-grey;
 	-webkit-font-smoothing: antialiased;
