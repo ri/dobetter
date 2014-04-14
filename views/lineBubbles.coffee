@@ -126,6 +126,13 @@ class lineBubbles
 			.attr(y1: 30)
 			.attr(y2: @height)
 
+		@companies.append('rect')
+			.attr(width: @width)
+			.attr(height: @rowHeight)
+			.attr(x: 0)
+			.attr(y: 0)
+			.attr(fill: 'transparent')
+			
 		@companies.append('text')
 			.text((d) -> 
 				if !(d['team'] is undefined)
