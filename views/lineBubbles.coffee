@@ -282,9 +282,9 @@ class lineBubbles
 			when '< 25% women'then
 			when '< 10% women' then
 
-d3.json("/data.json", (error, data) ->
+d3.csv("data/data.csv", (error, data) ->
 
-	data = d3.values data
+	# data = d3.values data
 	chart = new lineBubbles(data, selection)
 	chart.draw()	
 	d3.select('#teamSize').on('click', () -> dir = reverse(d3.select(this).node().nextSibling); chart.sortByTeamSize(dir); activate(this);)
