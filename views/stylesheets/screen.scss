@@ -6,7 +6,7 @@ h2 {font-size: $type2;}
 h3 {font-size: $type3;}
 h4 {font-size: $type4;}
 p, text { font-size: $type6; }
-a { color: $fem-colour; text-decoration: none}
+a { color: desaturate(lighten($fem-colour, 10%), 10%); text-decoration: none}
 body {
 	width: 100%;
 	font-family: $body-font;
