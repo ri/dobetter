@@ -9,7 +9,7 @@ calculateRadius = (scale, value, maxRadius) ->
 
 class lineBubbles
 	constructor: (data, selection) ->
-		@cleanData = data[1..data.length - 1]
+		@cleanData = data[0..data.length - 1]
 			.sort((a,b) -> d3.ascending(a['company'], b['company']))
 			.sort((a,b) -> d3.descending(parseInt(a['num_eng']), parseInt(b['num_eng'])))
 		@rowHeight = 80
@@ -284,9 +284,9 @@ class lineBubbles
 			when '< 25% women'then
 			when '< 10% women' then
 
-d3.csv("data/data.csv", (error, data) ->
+d3.json("data.json", (error, data) ->
 
-	# data = d3.values data
+	data = d3.values data
 	chart = new lineBubbles(data, selection)
 	chart.draw()	
 	d3.select('#teamSize').on('click', () -> dir = reverse(d3.select(this).node().nextSibling); chart.sortByTeamSize(dir); activate(this);)
