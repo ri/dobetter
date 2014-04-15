@@ -22,7 +22,9 @@ class lineBubbles
 			maleEng = (d['num_eng'] - d['num_female_eng'])
 			if maleEng < d['num_female_eng'] then d['num_female_eng'] else maleEng
 		)
-		@avgFem = d3.mean(@cleanData, (d) -> d['num_female_eng']/d['num_eng'])
+		@sumFem = d3.sum(@cleanData, (d) -> d['num_female_eng'])
+		@sumEng = d3.sum(@cleanData, (d) -> d['num_eng'])
+		@avgFem = @sumFem/@sumEng
 		@circleScale = d3.scale.linear().domain([0, @maxEng])
 		@xF = d3.scale.linear().domain([0, 1]).range([@width/2, @maxRadius])
 		@xM = d3.scale.linear().domain([0, 1]).range([@width/2, @width-@maxRadius])
