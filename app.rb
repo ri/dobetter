@@ -13,6 +13,8 @@ configure :development do
   use Rack::Reloader
 end
 
+set :protection, :except => :frame_options
+
 get '/' do
   erb :index, :layout => :layout
 end
